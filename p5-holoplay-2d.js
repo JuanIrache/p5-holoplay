@@ -118,8 +118,8 @@ export default async ({ preload, setup, draw, options }) => {
 
     p.draw = () => {
       const shapes = [];
-      const add = (action, depth, options) =>
-        shapes.push({ action, depth, options });
+      const add = (action, depth, x = 0, y = 0) =>
+        shapes.push({ action, depth, x, y });
       draw(p, add);
       drawQuilt({
         p,
