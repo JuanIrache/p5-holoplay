@@ -13,7 +13,7 @@ const drawView = ({ p, i, vtotal, shapes, adaptSize }) => {
     p.translate(shape.x, shape.y);
     if (!isNaN(maxDepthOff)) {
       if (adaptSize && shape.depth !== 0) {
-        const scaleAdjust = 1 / 2 ** (shape.depth / 200);
+        const scaleAdjust = 1 / 2 ** (shape.depth / 400);
         p.translate(p.width / 2, p.height / 2);
         p.scale(scaleAdjust);
         p.translate(-p.width / 2, -p.height / 2);
