@@ -1,5 +1,3 @@
-const client = new HoloPlayCore.Client(undefined, console.error);
-
 let canvas, context;
 const vx = 8;
 const vy = 6;
@@ -10,41 +8,34 @@ const screen = 3360;
 const w = screen / vx;
 const h = screen / vy;
 
-function setup() {
-  canvas = createCanvas(screen, screen);
-  context = canvas.elt.getContext('2d');
-  frameRate(5);
-  textAlign(CENTER, CENTER);
-  noStroke();
-}
+const s = p => {
+  window = { ...window, ...p5 };
+  p.setup = () => {
+    P5Holoplay2d.create(p)
+      .then(device =>
+        console.log(
+          'Started HoloCore for device:',
+          device.hardwareVersion,
+          device.hwid
+        )
+      )
+      .catch(e => console.error('Error getting HoloCore started:', e));
+  };
 
-const totalPos = vx * vy;
-const depth = w / 2;
+  p.draw = function () {
+    p.noStroke();
+    p.textAlign(p.CENTER, p.CENTER);
+    p.textSize(50);
+    P5Holoplay2d.add(() => p.background(250));
+    P5Holoplay2d.add(() => p.text('NEAR', p.width / 2, p.height * 0.75), -100);
+    P5Holoplay2d.add(() => p.text('CENTER', p.width / 2, p.height * 0.5), 0);
+    P5Holoplay2d.add(() => p.text('FAR', p.width / 2, p.height * 0.25), 100);
+    P5Holoplay2d.add(() => {
+      p.fill(255, 50, 50);
+      p.ellipse(p.width / 2, p.height / 2, 150);
+    }, 200 * Math.sin(p.millis() / 1000));
+    P5Holoplay2d.draw();
+  };
+};
 
-function draw() {
-  background(245);
-  for (let y = 0; y < vy; y++) {
-    for (let x = 0; x < vx; x++) {
-      const i = y * vx + x;
-      const cameraProp = i / totalPos - 0.5;
-      const maxCameraX = -cameraProp * depth;
-      for (let i = 0; i < 5; i++) {
-        const copyProp = i / 4 - 0.5;
-        const yp = height - (y + 0.5) * h + (copyProp * h) / 2;
-        const xp = (x + 0.5) * w + maxCameraX * copyProp;
-        textSize(h / 5);
-        text('word', xp, yp);
-      }
-    }
-  }
-
-  canvas.elt.toBlob(blob => {
-    blob.arrayBuffer().then(arr => {
-      const UIA = new Uint8Array(arr);
-      client
-        .sendMessage(new HoloPlayCore.ShowMessage(specs, UIA))
-        .catch(console.error);
-    });
-  });
-  noLoop();
-}
+new p5(s);
