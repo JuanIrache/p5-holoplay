@@ -16,7 +16,7 @@ const draw = (p, add) => {
   add(() => {
     p.fill(255, 50, 50);
     p.ellipse(p.width / 2, p.height / 2, 150);
-  }, 200 * Math.sin(p.millis() / 1000));
+  }, 200 * Math.sin(p.millis() / 600));
 };
 
 setTimeout(() => P5Holoplay2d({ setup, draw }), 2000);
