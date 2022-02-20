@@ -23,7 +23,8 @@ const drawQuilt = async ({
   specs,
   quilt,
   preview,
-  frameCount
+  frameCount,
+  wigglePreview
 }) => {
   shapes = shapes
     .map(s => (s.depth === null ? { ...s, depth: Infinity } : s))
@@ -53,7 +54,8 @@ const drawQuilt = async ({
   const bitmap = await createImageBitmap(quilt.elt);
 
   worker.postMessage({ action: 'saveFrame', payload: { bitmap } }, [bitmap]);
-  const i = Math.floor(vtotal / 2) + (frameCount % 2 === 0 ? 1 : -1);
+  let i = Math.floor(vtotal / 2);
+  if (wigglePreview) i += frameCount % 2 === 0 ? 1 : -1;
   drawView({ p, i, vtotal, shapes });
 };
 
@@ -77,7 +79,12 @@ const promiseHoloPlayCore = () =>
     );
   });
 
-export default async ({ preload, setup, draw }) => {
+export default async ({ preload, setup, draw, options }) => {
+  const {
+    adjustSize = false,
+    adjustPosition = false,
+    wigglePreview = true
+  } = options || {};
   const [client, device] = await promiseHoloPlayCore().catch(e =>
     setup(null, null, `HoloPlayCore error: ${e.message}`)
   );
@@ -107,7 +114,16 @@ export default async ({ preload, setup, draw }) => {
       const add = (action, depth, options) =>
         shapes.push({ action, depth, options });
       draw(p, add);
-      drawQuilt({ p, client, shapes, specs, quilt, preview, frameCount });
+      drawQuilt({
+        p,
+        client,
+        shapes,
+        specs,
+        quilt,
+        preview,
+        frameCount,
+        wigglePreview
+      });
       frameCount++;
     };
   };
