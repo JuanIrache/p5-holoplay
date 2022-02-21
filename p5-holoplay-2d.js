@@ -140,7 +140,9 @@ export default async ({ preload, setup, draw, options }) => {
         frameCount++;
       };
     };
-    new p5(s);
+
+    while (!window.p5) await new Promise(r => setTimeout(r, 1));
+    new window.p5(s);
   } catch (err) {
     setup(null, null, err);
   }
