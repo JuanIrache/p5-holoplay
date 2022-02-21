@@ -57,7 +57,7 @@ const setup = p => {
 - **setup** receives _p_, _device_ (device data from [holoplay-core](https://www.npmjs.com/package/holoplay-core)). Creates a canvas of the necessary dimensions (you don't need to create it yourself) and stops the usual p5 loop so frames are only drawn when possible. Wrapper of [setup()](https://p5js.org/reference/#/p5/setup).
 - **draw** receives _p_, _add_ (function to add layers). Runs every frame. Allows to add layers in the form of a function and its depth. Other p5 work commonly done in p5 draw() should work here. Layer functions are run multiple times (on for every camera view, 48 in the case of the Looking Glass Portrait, for example), while the rest of the code is only ran once per frame. So take that into account when deciding what to put inside of a layer function. Wrapper of [draw()](https://p5js.org/reference/#/p5/draw).
 
-Add functions must receive a drawing function and a depth value (positive means further from the viewer, negative is closer to them).
+"Add" functions must receive a drawing function and a depth value (positive means further from the viewer, negative is closer to them).
 
 ```js
 const draw = (p, add) => {
@@ -68,7 +68,7 @@ const draw = (p, add) => {
 };
 ```
 
-Depth values between 100 and -100 seem to draw layers with noticeable depth but more or less withing the frame of the device. Larger values will produce more impressive effects, but also blurrier graphics (which might be fine). If depth is omitted, Infinity will be assumed, which is meant for functions that don't rely on depth, like _p.background()_.
+Depth values between 100 and -100 seem to draw layers with noticeable depth but more or less within the frame of the device. Larger values will produce more impressive effects, but also blurrier graphics (which might be fine, creatively). If depth is omitted, Infinity will be assumed, which is meant for functions that don't rely on depth, like _p.background()_.
 
 Layers are not necessarily drawn in the order your _add_ them. They are drawn from farther to nearer, so don't expect changes you make to things like _stroke_, _fill_ and other to persist between added layers. Set all you need for each layer within its own function. Each added function can be thought of like a mini p5 draw function.
 
