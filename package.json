@@ -1,6 +1,6 @@
 {
   "name": "p5-holoplay-2d",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "Allows to draw 2D p5js elements to a Looking Glass holographic display as layers in 3D space",
   "main": "index.js",
   "scripts": {
