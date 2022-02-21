@@ -11,20 +11,23 @@ Allows to create holographic [p5js](https://p5js.org) sketches (2D layers in 3D 
 
 ## Getting started
 
-Currently this works as a template project. Ideally future versions will also be a more standard npm module that can be integrated into other projects, but for now you should:
+You can create your own project by modifying the included _sample-project_. See instructions on how to get it running in its own _README.md_.
 
-Copy the project to your computer
-
-Install dependencies
+Or you can integrate this in your own projects by installing the module
 
 ```shell
-npm install
+npm i p5-holoplay-2d
 ```
 
-Open **index.html** (ideally through a live server)
-Make changes to **sketch.js** to create your holograms
+and including it in your javascript as a CommonsJS module (it will need bundling to run on the browser)
 
-## Create p5 holograms
+```js
+const P5Holoplay2d = require('p5-holoplay-2d');
+```
+
+Then prepare your _setup_, _draw_, etc. functions and pass them to the _P5Holoplay2d_ function.
+
+## How to create p5 holograms
 
 This project integrates p5js in [instance mode](https://p5js.org/reference/#/p5/p5). This means the usual p5 methods and properties are not in the global namespace (available everywhere), but bundled in a variable.
 
@@ -121,7 +124,6 @@ A similar project could be created for the 3D renderers of p5 (webgl). You will 
 
 ## TODO
 
-- Refactor as sample project + library (not sure it can do both with a simple structure)
 - See if holoplay-core can be updated so "message" is not always printed
 - Optimise fps somehow? Converting the canvas takes time, and HoloPlay Core takes time to receive it and confirm
 - Maybe check if last message was confirmed by holo before sending the next?
