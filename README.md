@@ -65,7 +65,7 @@ const draw = (p, add) => {
 };
 ```
 
-Depth values between 100 and -100 seem to draw layers with noticeable depth but more or less withing the frame of the device. Larger values will produce more impressive effects, but also blurrier graphics (which might be fine).
+Depth values between 100 and -100 seem to draw layers with noticeable depth but more or less withing the frame of the device. Larger values will produce more impressive effects, but also blurrier graphics (which might be fine). If depth is omitted, Infinity will be assumed, which is meant for functions that don't rely on depth, like _p.background()_.
 
 Layers are not necessarily drawn in the order your _add_ them. They are drawn from farther to nearer, so don't expect changes you make to things like _stroke_, _fill_ and other to persist between added layers. Set all you need for each layer within its own function. Each added function can be thought of like a mini p5 draw function.
 
