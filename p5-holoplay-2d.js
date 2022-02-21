@@ -2,6 +2,11 @@ import * as HoloPlayCore from './node_modules/holoplay-core/dist/holoplaycore.mo
 
 import errors from './modules/errors.js';
 
+const p5script = document.createElement('script');
+p5script.type = 'text/javascript';
+p5script.src = '../node_modules/p5/lib/p5.js';
+document.querySelector('head').append(p5script);
+
 const worker = new Worker('./modules/quiltToPNG.worker.js');
 
 const drawView = ({ p, i, vtotal, shapes, adaptSize }) => {

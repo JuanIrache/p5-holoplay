@@ -1,3 +1,6 @@
+import P5Holoplay2d from './p5-holoplay-2d.js';
+window.P5Holoplay2d = P5Holoplay2d;
+
 const setup = (p, device, err) => {
   if (err) console.error(`Error getting HoloCore started: ${err}`);
   else {
@@ -20,4 +23,4 @@ const draw = (p, add) => {
   }, 200 * Math.sin(p.millis() / 600));
 };
 
-setTimeout(() => P5Holoplay2d({ setup, draw }), 2000);
+P5Holoplay2d({ setup, draw });
