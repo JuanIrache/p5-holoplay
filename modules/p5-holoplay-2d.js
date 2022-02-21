@@ -15,7 +15,6 @@ const drawView = ({ p, i, vtotal, shapes, adaptSize }) => {
     const maxDepthOff = 1 / 1 - -shape.depth;
     const depthOff = maxDepthOff * viewProp;
     p.push();
-    p.translate(shape.x, shape.y);
     if (!isNaN(maxDepthOff)) {
       if (adaptSize && shape.depth !== 0) {
         const scaleAdjust = 1 / 2 ** (shape.depth / 400);
