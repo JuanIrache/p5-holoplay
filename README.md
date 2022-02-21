@@ -1,12 +1,129 @@
-Experiments for using 2D p5js drawing in Looking Glass devices, specifically the Portrait
+# p5-holoplay-2d
 
-# TODO
+Allows to create holographic [p5js](https://p5js.org) sketches (2D layers in 3D space) and shows them to [Looking Glass](https://lookingglassfactory.com/) holographic displays.
 
-- Distribute as sample project + library
-- Document
-- See if it works as a module or imports need to be adjusted
-- Optimise stuff somehow? Converting the canvas takes time, and HoLoCore takes time to receive it and confirm
-- See if we can use p5 frameCount, frameRate, etc.
+## Prerequisites
+
+- A [Looking Glass](https://lookingglassfactory.com/) holographic display
+- Install [HoloPlay Service](https://lookingglassfactory.com/software#holoplay-service) to communicate with the device
+- Plug the device to your computer both by USB and HDMI
+- Install [node](https://nodejs.org) on your computer
+
+## Getting started
+
+Currently this works as a template project. Ideally future versions will also be a more standard npm module that can be integrated into other projects, but for now you should:
+
+Copy the project to your computer
+
+Install dependencies
+
+```shell
+npm install
+```
+
+Open **index.html** (ideally through a live server)
+Make changes to **sketch.js** to create your holograms
+
+## Create p5 holograms
+
+This project integrates p5js in [instance mode](https://p5js.org/reference/#/p5/p5). This means the usual p5 methods and properties are not in the global namespace (available everywhere), but bundled in a variable.
+
+The **p5-holoplay-2d** module receives an object with three functions named after the typical p5js functions (_preload_, _setup_, _draw_) and an options object.
+
+```js
+P5Holoplay2d({ preload, setup, draw, options });
+```
+
+These functions will pass the p variable so you can use the p5 methods and properties. So instead of
+
+```js
+function setup() {
+  background(255);
+}
+```
+
+You can do
+
+```js
+const setup = p => {
+  p.background(255);
+};
+```
+
+- **preload** receives _p_ (p5 variable). Useful for loading things like images before running the p5 sketch. Wrapper of [preload()](https://p5js.org/reference/#/p5/preload).
+- **setup** receives _p_, _device_ (device data from [holoplay-core](https://www.npmjs.com/package/holoplay-core)). Creates a canvas of the necessary dimensions (you don't need to create it yourself) and stops the usual p5 loop so frames are only drawn when possible. Wrapper of [setup()](https://p5js.org/reference/#/p5/setup).
+- **draw** receives _p_, _add_ (function to add layers). Runs every frame. Allows to add layers in the form of a function and its depth. Other p5 work commonly done in p5 draw() should work here. Layer functions are run multiple times (on for every camera view, 48 in the case of the Looking Glass Portrait, for example), while the rest of the code is only ran once per frame. So take that into account when deciding what to put inside of a layer function. Wrapper of [draw()](https://p5js.org/reference/#/p5/draw).
+
+Add functions must receive a drawing function and a depth value (positive means further from the viewer, negative is closer to them).
+
+```js
+const draw = (p, add) => {
+  add(() => {
+    p.fill(255, 0, 0);
+    p.ellipse(0, 0, 100);
+  }, 100);
+};
+```
+
+Depth values between 100 and -100 seem to draw layers with noticeable depth but more or less withing the frame of the device. Larger values will produce more impressive effects, but also blurrier graphics (which might be fine).
+
+Layers are not necessarily drawn in the order your _add_ them. They are drawn from farther to nearer, so don't expect changes you make to things like _stroke_, _fill_ and other to persist between added layers. Set all you need for each layer within its own function. Each added function can be thought of like a mini p5 draw function.
+
+This syntax can get complicated quickly, but is an alternative to thoroughly modifying p5 to make it generate the "quilt".
+
+For more p5 methods and properties, see the [reference](https://p5js.org/reference/).
+
+### Other p5 functions
+
+Other p5 functions that would be normally set globally should be set in the setup once the _p_ variable is available.
+
+For example, instead of
+
+```js
+function mouseClicked() {
+  console.log(mouseX, mouseY);
+}
+```
+
+you would do
+
+```js
+setup = p => {
+  p.mouseClicked = () => {
+    console.log(p.mouseX, p.mouseY);
+  };
+};
+```
+
+### Options
+
+An _options_ object can also be passed to _p5-holoplay-2d_.
+
+```js
+const options = { adaptSize: false, wigglePreview: false, displayQuilt: true };
+```
+
+- **adaptSize** default _true_: Adapts the size of layers to increase perceived depth with some conic perspective. This is probably not geometrically correct. Disabling it increases precision when drawing elements. For example, if _adaptSize_ is enabled and you draw a dot at the coordinates 0,0 of a layer with negative depth, the dot will be outside of the screen due to the conical perspective.
+- **wigglePreview** default _true_: The preview in the browser window switches between displaying two of the camera perspectives to convey a sense of depth even if you are not looking at the holographic display.
+- **displayQuilt** deafult _false_: See the entire quilt with multiple camera views in your browser, instead of the simplified preview.
+
+## How does this work?
+
+The code generates a [Quilt](https://docs.lookingglassfactory.com/keyconcepts/quilts) for each frame. That is, a series of camera perspectives (48 in the case of the Looking Glass Portrait) to be sent to the holographic display.
+
+A similar project could be created for the 3D renderers of p5 (webgl). You will probably need to create one camera for each view, or move the camera to generate all the views. An exciting project to take on if you want to make it happen!
+
+## Notes
+
+- Currently frame rates are very low. The canvas (which is large due to all the hidden camera views) takes time to convert to PNG so it can be sent to the device.
+- Since the p5 loop is stopped, some p5 methods and properties like _frameRate_ or _frameCount_ do not work as expected.
+- Multiple hacky and experimental JavaScript features are used. This will not work on all browsers.
+
+## TODO
+
+- Refactor as sample project + library (not sure it can do both with a simple structure)
+- See if holoplay-core can be updated so "message" is not always printed
+- Optimise fps somehow? Converting the canvas takes time, and HoloPlay Core takes time to receive it and confirm
 - Maybe check if last message was confirmed by holo before sending the next?
-- Implement more p methods (onMouse, etc) or indicate to set them in setup?
-- Report "message" problem
+- See how we can use p5 frameCount, frameRate, etc.
+- Test on multiple devices, browsers, etc.
