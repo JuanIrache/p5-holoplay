@@ -56,7 +56,7 @@ const drawQuilt = ({
   frameCount,
   adaptSize,
   wigglePreview,
-  displayQuilt
+  previewQuilt
 }) => {
   shapes = shapes
     .map(s => (s.depth === null ? { ...s, depth: Infinity } : s))
@@ -74,7 +74,7 @@ const drawQuilt = ({
 
   showQuilt({ p, quilt, client, specs });
 
-  if (!displayQuilt) {
+  if (!previewQuilt) {
     let i = Math.floor(vtotal / 2);
     if (wigglePreview) i += frameCount % 2 === 0 ? 1 : -1;
     drawView({ p, i, vtotal, shapes, adaptSize });
@@ -106,7 +106,7 @@ export default async ({ preload, setup, draw, options }) => {
   const {
     adaptSize = true,
     wigglePreview = true,
-    displayQuilt = false
+    previewQuilt = false
   } = options || {};
   try {
     const [client, device] = await promiseHoloPlayCore();
@@ -129,7 +129,7 @@ export default async ({ preload, setup, draw, options }) => {
         p.noLoop();
         preview = p.createCanvas(w / vx, h / vy);
         quilt = p.createGraphics(w, h);
-        if (displayQuilt) {
+        if (previewQuilt) {
           preview.hide();
           quilt.show();
         }
@@ -150,7 +150,7 @@ export default async ({ preload, setup, draw, options }) => {
           frameCount,
           adaptSize,
           wigglePreview,
-          displayQuilt
+          previewQuilt
         });
         frameCount++;
       };
