@@ -81,6 +81,7 @@ const promiseHoloPlayCore = () =>
       ({ devices }) => {
         const device = devices[0];
         if (!device) return reject('Device not found');
+        if (!device.defaultQuilt) return reject('Device calibration not found');
 
         worker.postMessage({
           action: 'setSize',
