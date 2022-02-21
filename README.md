@@ -129,3 +129,4 @@ A similar project could be created for the 3D renderers of p5 (webgl). You will 
 - Maybe check if last message was confirmed by holo before sending the next?
 - See how we can use p5 frameCount, frameRate, etc.
 - Test on multiple devices, browsers, etc.
+- Use mathematically correct formula for _adaptSize_
