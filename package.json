@@ -1,13 +1,20 @@
 {
-  "name": "holoplay",
-  "version": "1.0.0",
-  "description": "",
+  "name": "p5-holoplay-2d",
+  "version": "0.0.1",
+  "description": "Allows to draw 2D p5js elements to a Looking Glass holographic display as layers in 3D space",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "hologram",
+    "p5js",
+    "holoplay-core",
+    "3D",
+    "holograms",
+    "creative coding"
+  ],
+  "author": "Juan Irache Duesca",
   "license": "ISC",
   "dependencies": {
     "holoplay-core": "^0.0.8",
