@@ -2,6 +2,8 @@
 
 Allows to create holographic [p5js](https://p5js.org) sketches (2D layers in 3D space) and shows them to [Looking Glass](https://lookingglassfactory.com/) holographic displays.
 
+See a [quick video test here](https://youtu.be/Bb5oi7Y_aos).
+
 ## Prerequisites
 
 - A [Looking Glass](https://lookingglassfactory.com/) holographic display
