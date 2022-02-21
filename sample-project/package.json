@@ -5,12 +5,16 @@
   "main": "index.html",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "npx browserify sketch.js -o bundle.js",
-    "start": "npx budo --live --open sketch.js"
+    "build": "browserify sketch.js -o bundle.js",
+    "start": "budo sketch.js:bundle.js --live --open"
   },
   "author": "Juan Irache Duesca",
   "license": "ISC",
   "dependencies": {
     "p5-holoplay-2d": "^0.1.0"
+  },
+  "devDependencies": {
+    "browserify": "^17.0.0",
+    "budo": "^11.6.4"
   }
 }
