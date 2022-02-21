@@ -132,3 +132,7 @@ A similar project could be created for the 3D renderers of p5 (webgl). You will 
 - See how we can use p5 frameCount, frameRate, etc.
 - Test on multiple devices, browsers, etc.
 - Use mathematically correct formula for _adaptSize_
+
+## About
+
+If you liked this you might like some of my [other projects](https://prototyping.barcelona).
