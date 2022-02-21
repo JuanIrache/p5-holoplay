@@ -2,7 +2,33 @@ const HoloPlayCore = require('holoplay-core');
 const p5 = require('p5');
 
 const errors = require('./modules/errors.js');
-const worker = new Worker('./modules/quiltToPNG.worker.js');
+
+const blob = new Blob(
+  [
+    `
+  const canvas = new OffscreenCanvas(300, 300);
+  const ctx = canvas.getContext('bitmaprenderer');
+  
+  const saveFrame = async ({ bitmap }) => {
+    ctx.transferFromImageBitmap(bitmap);
+    const blob = await canvas.convertToBlob();
+    const arrBuf = await blob.arrayBuffer();
+    self.postMessage({ action: 'success', payload: arrBuf }, [arrBuf]);
+  };
+  
+  onmessage = ({ data }) => {
+    const { action, payload } = data;
+    if (action === 'setSize') {
+      const { size } = payload;
+      canvas.width = size[0];
+      canvas.height = size[1];
+    } else if (action === 'saveFrame') saveFrame(payload);
+  };`
+  ],
+  { type: 'text/javascript' }
+);
+
+const worker = new Worker(window.URL.createObjectURL(blob));
 
 const drawView = ({ p, i, vtotal, shapes, adaptSize }) => {
   const viewProp = i / vtotal - 0.5;
