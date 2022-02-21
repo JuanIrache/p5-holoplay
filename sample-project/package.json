@@ -1,0 +1,15 @@
+{
+  "name": "p5-holoplay-2d-sample-project",
+  "version": "1.0.0",
+  "description": "Modify this project to create your own, or use it for reference",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "npx browserify sketch.js -o bundle.js"
+  },
+  "author": "Juan Irache Duesca",
+  "license": "ISC",
+  "dependencies": {
+    "p5-holoplay-2d": "^0.1.0"
+  }
+}

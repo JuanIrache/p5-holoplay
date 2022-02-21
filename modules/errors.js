@@ -1,4 +1,4 @@
-export default [
+module.exports = [
   'No error, everything ok.',
   'CBOR parser failure.',
   'Driver could not understand the command.',

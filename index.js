@@ -1,12 +1,7 @@
-import * as HoloPlayCore from '../node_modules/holoplay-core/dist/holoplaycore.module.js';
+const HoloPlayCore = require('holoplay-core');
+const p5 = require('p5');
 
-import errors from './errors.js';
-
-const p5script = document.createElement('script');
-p5script.type = 'text/javascript';
-p5script.src = './node_modules/p5/lib/p5.js';
-document.querySelector('head').append(p5script);
-
+const errors = require('./modules/errors.js');
 const worker = new Worker('./modules/quiltToPNG.worker.js');
 
 const drawView = ({ p, i, vtotal, shapes, adaptSize }) => {
@@ -102,7 +97,7 @@ const promiseHoloPlayCore = () =>
     );
   });
 
-export default async ({ preload, setup, draw, options }) => {
+module.exports = async ({ preload, setup, draw, options }) => {
   const {
     adaptSize = true,
     wigglePreview = true,
@@ -156,8 +151,7 @@ export default async ({ preload, setup, draw, options }) => {
       };
     };
 
-    while (!window.p5) await new Promise(r => setTimeout(r, 1));
-    new window.p5(s);
+    new p5(s);
   } catch (err) {
     setup(null, null, err);
   }

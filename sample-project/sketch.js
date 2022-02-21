@@ -1,4 +1,4 @@
-import P5Holoplay2d from './modules/p5-holoplay-2d.js';
+const P5Holoplay2d = require('p5-holoplay-2d');
 
 const setup = (p, device, err) => {
   if (err) console.error(`Error getting HoloCore started: ${err}`);
