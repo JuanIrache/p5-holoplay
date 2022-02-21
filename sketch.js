@@ -1,5 +1,5 @@
 const setup = (p, device, err) => {
-  if (err) console.error('Error getting HoloCore started:', e);
+  if (err) console.error(`Error getting HoloCore started: ${err}`);
   else {
     console.log('Started HoloCore for', device.hardwareVersion, device.hwid);
     p.noStroke();

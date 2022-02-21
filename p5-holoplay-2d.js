@@ -75,7 +75,7 @@ const promiseHoloPlayCore = () =>
     const client = new HoloPlayCore.Client(
       ({ devices }) => {
         const device = devices[0];
-        if (!device) reject('Device not found');
+        if (!device) return reject('Device not found');
 
         worker.postMessage({
           action: 'setSize',
@@ -92,48 +92,51 @@ const promiseHoloPlayCore = () =>
 
 export default async ({ preload, setup, draw, options }) => {
   const { adaptSize = true, wigglePreview = true } = options || {};
-  const [client, device] = await promiseHoloPlayCore().catch(e =>
-    setup(null, null, `HoloPlayCore error: ${e.message}`)
-  );
-  const {
-    quiltAspect: aspect,
-    quiltX: w,
-    quiltY: h,
-    tileX: vx,
-    tileY: vy
-  } = device.defaultQuilt;
-  const specs = { vx, vy, vtotal: vx * vy, aspect };
-  const s = p => {
-    let preview, quilt;
-    let frameCount = 0;
+  try {
+    const [client, device] = await promiseHoloPlayCore();
 
-    if (preload) p.preload = () => preload(p);
+    const {
+      quiltAspect: aspect,
+      quiltX: w,
+      quiltY: h,
+      tileX: vx,
+      tileY: vy
+    } = device.defaultQuilt;
+    const specs = { vx, vy, vtotal: vx * vy, aspect };
+    const s = p => {
+      let preview, quilt;
+      let frameCount = 0;
 
-    p.setup = () => {
-      p.noLoop();
-      preview = p.createCanvas(w / vx, h / vy);
-      quilt = p.createGraphics(w, h);
-      setup(p, device);
+      if (preload) p.preload = () => preload(p);
+
+      p.setup = () => {
+        p.noLoop();
+        preview = p.createCanvas(w / vx, h / vy);
+        quilt = p.createGraphics(w, h);
+        setup(p, device);
+      };
+
+      p.draw = () => {
+        const shapes = [];
+        const add = (action, depth, x = 0, y = 0) =>
+          shapes.push({ action, depth, x, y });
+        draw(p, add);
+        drawQuilt({
+          p,
+          client,
+          shapes,
+          specs,
+          quilt,
+          preview,
+          frameCount,
+          adaptSize,
+          wigglePreview
+        });
+        frameCount++;
+      };
     };
-
-    p.draw = () => {
-      const shapes = [];
-      const add = (action, depth, x = 0, y = 0) =>
-        shapes.push({ action, depth, x, y });
-      draw(p, add);
-      drawQuilt({
-        p,
-        client,
-        shapes,
-        specs,
-        quilt,
-        preview,
-        frameCount,
-        adaptSize,
-        wigglePreview
-      });
-      frameCount++;
-    };
-  };
-  new p5(s);
+    new p5(s);
+  } catch (err) {
+    setup(null, null, err);
+  }
 };
