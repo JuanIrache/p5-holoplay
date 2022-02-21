@@ -30,7 +30,24 @@ const drawView = ({ p, i, vtotal, shapes, adaptSize }) => {
   }
 };
 
-const drawQuilt = async ({
+const showQuilt = async ({ p, quilt, client, specs }) => {
+  worker.onmessage = ({ data }) => {
+    p.draw();
+    client
+      .sendMessage(
+        new HoloPlayCore.ShowMessage(specs, new Uint8Array(data.payload))
+      )
+      .catch(e =>
+        console.error(`HoloPlayCore Error code ${e.error}: ${errors[e.error]}`)
+      );
+  };
+
+  const bitmap = await createImageBitmap(quilt.elt);
+
+  worker.postMessage({ action: 'saveFrame', payload: { bitmap } }, [bitmap]);
+};
+
+const drawQuilt = ({
   p,
   client,
   shapes,
@@ -55,20 +72,7 @@ const drawQuilt = async ({
     }
   }
 
-  worker.onmessage = ({ data }) => {
-    p.draw();
-    client
-      .sendMessage(
-        new HoloPlayCore.ShowMessage(specs, new Uint8Array(data.payload))
-      )
-      .catch(e =>
-        console.error(`HoloPlayCore Error code ${e.error}: ${errors[e.error]}`)
-      );
-  };
-
-  const bitmap = await createImageBitmap(quilt.elt);
-
-  worker.postMessage({ action: 'saveFrame', payload: { bitmap } }, [bitmap]);
+  showQuilt({ p, quilt, client, specs });
 
   let i = Math.floor(vtotal / 2);
   if (wigglePreview) i += frameCount % 2 === 0 ? 1 : -1;
