@@ -103,7 +103,7 @@ An _options_ object can also be passed to _p5-holoplay-2d_.
 const options = { adaptSize: false, wigglePreview: false, displayQuilt: true };
 ```
 
-- **adaptSize** default _true_: Adapts the size of layers to increase perceived depth with some conic perspective. This is probably not geometrically correct. Disabling it increases precision when drawing elements. For example, if _adaptSize_ is enabled and you draw a dot at the coordinates 0,0 of a layer with negative depth, the dot will be outside of the screen due to the conical perspective.
+- **adaptSize** default _true_: Adapts the size of layers to increase perceived depth with some conic perspective. This is not geometrically accurate. Disabling it increases precision when drawing elements. For example, if _adaptSize_ is enabled and you draw a dot at the coordinates 0,0 of a layer with negative depth, the dot will be outside of the screen due to the conical perspective.
 - **wigglePreview** default _true_: The preview in the browser window switches between displaying two of the camera perspectives to convey a sense of depth even if you are not looking at the holographic display.
 - **displayQuilt** deafult _false_: See the entire quilt with multiple camera views in your browser, instead of the simplified preview.
 
