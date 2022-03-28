@@ -94,16 +94,15 @@ This syntax can get complicated quickly, but is an alternative to thoroughly mod
 ```js
 let ballX, ballY;
 
-const preDraw = (p, meta) => {
-  // Store the same mouse values for all the camera views
-  const { mouseX, mouseY, width, height } = meta.p;
-  ballX = mouseX - width / 2;
-  ballY = mouseY - height / 2;
+const preDraw = p => {
+  // Store the same mouse positions for all the camera views
+  ballX = p.mouseX - p.width / 2;
+  ballY = p.mouseY - p.height / 2;
 };
 
-const draw = (p, add) => {
+const draw = p => {
   normalMaterial();
-  sphere(mouseX, mouseY, 50);
+  sphere(ballX, ballY, 50);
 };
 ```
 
@@ -122,7 +121,7 @@ A _meta_ object is passed with some functions to enable advanced work. The objec
 - **previewFrame**: (_webgl_ only) Frame number of the preview canvas. Potential replacement of p5's [frameCount](https://p5js.org/reference/#/p5/frameCount) Useful because it does not update at p5's normal frame rate, nor at the Looking Glass rate.
 - **cam**: (_webgl_ only) [p5.Camera](https://p5js.org/reference/#/p5.Camera) of the view that is currently being drawn. It allows camera transformations like position and field of view.
 - **millis**: (_webgl_ only) Time since the stetch started running, in milliseconds. Potential replacement of [millis()](https://p5js.org/reference/#/p5/millis), which would change while the multiple views are being drawn, this providing unexpected results.
-- **quilt**: Reference to the [p5.Graphics](https://p5js.org/reference/#/p5.Graphics) holding the ['quilt'](https://docs.lookingglassfactory.com/keyconcepts/quilts) being sent to the Looking Glass device. Useful for doing things with that specific canvas, like saving it to a file with _.save()_.
+- **quilt**: Reference to the [p5.Graphics](https://p5js.org/reference/#/p5.Graphics) holding the ['quilt'](https://docs.lookingglassfactory.com/keyconcepts/quilts) being sent to the Looking Glass device. Useful for doing things with that specific canvas, like saving it to a file with [].save()](https://p5js.org/reference/#/p5/save).
 - **preview**: Reference to the [p5.Renderer](https://p5js.org/reference/#/p5/createCanvas) holding the preview visualization.
 - **p**: Reference to the [p5 sketch](https://p5js.org/reference/#/p5/p5). In _webgl_ mode, it can be more representative than the main _p_ of the _draw_ function, as that refers to the camera perspective being drawn at any given time. So use it for things like sketch width, mouse position...
 
@@ -175,7 +174,6 @@ The code generates a [Quilt](https://docs.lookingglassfactory.com/keyconcepts/qu
 
 ## TODO
 
-- Deprecate old npm package
 - Optimise fps somehow? Converting the canvas takes time, and HoloPlay Core takes time to receive it and confirm https://github.com/Looking-Glass/HoloPlayJS_Issues/issues/19
 - See if holoplay-core can be updated so "message" is not always printed https://github.com/Looking-Glass/HoloPlayJS_Issues/issues/18
 - Test on multiple devices, browsers, etc.
