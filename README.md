@@ -1,4 +1,4 @@
-# p5-holoplay-2d
+# p5-holoplay
 
 Allows to create holographic [p5js](https://p5js.org) sketches (2D layers in 3D space) and shows them to [Looking Glass](https://lookingglassfactory.com/) holographic displays.
 
@@ -18,13 +18,13 @@ You can create your own project by modifying the included _sample-project_. See 
 Or you can integrate this in your own projects by installing the module
 
 ```shell
-npm i p5-holoplay-2d
+npm i p5-holoplay
 ```
 
 and including it in your javascript as a CommonsJS module (it will need bundling to run on the browser)
 
 ```js
-const P5Holoplay2d = require('p5-holoplay-2d');
+const P5Holoplay2d = require('p5-holoplay');
 ```
 
 Then prepare your _setup_, _draw_, etc. functions and pass them to the _P5Holoplay2d_ function.
@@ -33,7 +33,7 @@ Then prepare your _setup_, _draw_, etc. functions and pass them to the _P5Holopl
 
 This project integrates p5js in [instance mode](https://p5js.org/reference/#/p5/p5). This means the usual p5 methods and properties are not in the global namespace (available everywhere), but bundled in a variable.
 
-The **p5-holoplay-2d** module receives an object with three functions named after the typical p5js functions (_preload_, _setup_, _draw_) and an options object.
+The **p5-holoplay** module receives an object with three functions named after the typical p5js functions (_preload_, _setup_, _draw_) and an options object.
 
 ```js
 P5Holoplay2d({ preload, setup, draw, options });
@@ -102,7 +102,7 @@ setup = p => {
 
 ### Options
 
-An _options_ object can also be passed to _p5-holoplay-2d_.
+An _options_ object can also be passed to _p5-holoplay_.
 
 ```js
 const options = { adaptSize: false, wigglePreview: false, previewQuilt: true };

@@ -11,7 +11,7 @@
   "author": "Juan Irache Duesca",
   "license": "ISC",
   "dependencies": {
-    "p5-holoplay-2d": "*"
+    "p5-holoplay": "*"
   },
   "devDependencies": {
     "browserify": "^17.0.0",

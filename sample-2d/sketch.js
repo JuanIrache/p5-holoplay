@@ -1,4 +1,4 @@
-const { sketch2d } = require('../index');
+const { sketch2d } = require('p5-holoplay');
 
 const colors = [
   [255, 50, 50],

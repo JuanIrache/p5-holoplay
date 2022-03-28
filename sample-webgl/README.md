@@ -1,4 +1,4 @@
-# p5-holoplay-2d-sample-project
+# p5-holoplay-webgl-sample-project
 
 Modify this project to create your own, or use the _sketch.js_ it for reference.
 
