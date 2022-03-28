@@ -1,4 +1,4 @@
-const sketch2d = require('./modules/sketch2d');
-const sketchWebgl = require('./modules/sketchWebgl');
+const p2dSketch = require('./modules/p2dSketch');
+const webglSketch = require('./modules/webglSketch');
 
-module.exports = { sketch2d, sketchWebgl };
+module.exports = { p2dSketch, webglSketch };

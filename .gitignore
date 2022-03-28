@@ -1,5 +1,5 @@
 node_modules/
-sample-2d/bundle.js
-sample-2d/package-lock.json
+sample-p2d/bundle.js
+sample-p2d/package-lock.json
 sample-webgl/bundle.js
 sample-webgl/package-lock.json
