@@ -1,4 +1,4 @@
-const P5Holoplay2d = require('p5-holoplay-2d');
+const { sketch2d } = require('../index');
 
 const colors = [
   [255, 50, 50],
@@ -33,4 +33,4 @@ const draw = (p, add) => {
   }, 200 * Math.sin(p.millis() / 600));
 };
 
-P5Holoplay2d({ setup, draw });
+sketch2d({ setup, draw });
