@@ -28,7 +28,6 @@ const drawQuilt = ({
   specs,
   quilt,
   preview,
-  previewFrame,
   adaptSize,
   wigglePreview,
   previewQuilt
@@ -50,7 +49,7 @@ const drawQuilt = ({
   if (!previewQuilt) {
     let i = Math.floor(vtotal / 2);
     if (wigglePreview) {
-      i += Math.round(previewFrame / 2) % 2 === 0 ? 1 : -1;
+      i += Math.round(p.frame / 2) % 2 === 0 ? 1 : -1;
     }
     drawView({ p, i, vtotal, shapes, adaptSize });
   }
@@ -75,7 +74,6 @@ module.exports = async ({ preload, setup, draw, options }) => {
     const specs = { vx, vy, vtotal: vx * vy, aspect };
     const s = p => {
       let preview, quilt;
-      let previewFrame = 0;
       let viewerFrame = 0;
 
       if (preload) p.preload = () => preload(p);
@@ -93,7 +91,6 @@ module.exports = async ({ preload, setup, draw, options }) => {
           quilt.show();
         }
         const meta = {
-          previewFrame: 0,
           viewerFrame,
           device,
           quilt,
@@ -107,7 +104,6 @@ module.exports = async ({ preload, setup, draw, options }) => {
         const shapes = [];
         const add = (action, depth) => shapes.push({ action, depth });
         const meta = {
-          previewFrame,
           viewerFrame,
           device,
           quilt,
@@ -122,12 +118,10 @@ module.exports = async ({ preload, setup, draw, options }) => {
           specs,
           quilt,
           preview,
-          previewFrame,
           adaptSize,
           wigglePreview,
           previewQuilt
         });
-        previewFrame++;
       };
     };
 
