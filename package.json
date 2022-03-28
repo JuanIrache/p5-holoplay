@@ -1,7 +1,7 @@
 {
   "name": "p5-holoplay",
   "version": "0.2.0",
-  "description": "Allows to draw 2D p5js elements to a Looking Glass holographic display",
+  "description": "Allows to draw p5js elements to a Looking Glass holographic display",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
