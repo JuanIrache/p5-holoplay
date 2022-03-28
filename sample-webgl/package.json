@@ -1,0 +1,20 @@
+{
+  "name": "p5-holoplay-webgl-sample-project",
+  "version": "1.0.0",
+  "description": "Modify this project to create your own, or use it for reference",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "browserify sketch.js -o bundle.js",
+    "start": "budo sketch.js:bundle.js --live --open"
+  },
+  "author": "Juan Irache Duesca",
+  "license": "ISC",
+  "dependencies": {
+    "p5-holoplay-2d": "*"
+  },
+  "devDependencies": {
+    "browserify": "^17.0.0",
+    "budo": "^11.6.4"
+  }
+}
