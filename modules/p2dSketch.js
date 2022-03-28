@@ -100,7 +100,7 @@ module.exports = async ({ preload, setup, draw, options }) => {
           p,
           preview
         };
-        setup(p, null, meta);
+        if (setup) setup(p, null, meta);
       };
 
       p.draw = () => {
@@ -114,7 +114,7 @@ module.exports = async ({ preload, setup, draw, options }) => {
           p,
           preview
         };
-        draw(p, add, meta);
+        if (draw) draw(p, add, meta);
         drawQuilt({
           p,
           client,
@@ -133,6 +133,6 @@ module.exports = async ({ preload, setup, draw, options }) => {
 
     new p5(s);
   } catch (err) {
-    setup(null, err);
+    if (setup) setup(null, err, {});
   }
 };

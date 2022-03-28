@@ -7,9 +7,11 @@ const depthMult = 4;
 const drawView = ({ graph, draw, viewProp, cam, meta }) => {
   graph.noLights();
   graph.clear();
-  cam.setPosition(cam.eyeY + viewProp, cam.eyeY, cam.eyeZ);
-  draw(graph, meta);
-  cam.setPosition(cam.eyeY - viewProp, cam.eyeY, cam.eyeZ);
+  if (draw) {
+    cam.setPosition(cam.eyeY + viewProp, cam.eyeY, cam.eyeZ);
+    draw(graph, meta);
+    cam.setPosition(cam.eyeY - viewProp, cam.eyeY, cam.eyeZ);
+  }
 };
 
 const drawQuilt = ({
@@ -27,7 +29,7 @@ const drawQuilt = ({
   previewQuilt,
   viewerFrame,
   device,
-  drawOnce
+  preDraw
 }) => {
   const { vx, vtotal } = specs;
   for (const { graph, cam } of renderers) {
@@ -49,7 +51,7 @@ const drawQuilt = ({
     if (i === 0) {
       millis = p.millis();
       meta.millis = millis;
-      if (drawOnce) drawOnce(p, meta);
+      if (preDraw) preDraw(p, meta);
     }
     drawView({ graph, draw, viewProp, cam, meta });
     const quiltX = x * p.width;
@@ -95,10 +97,10 @@ const drawQuilt = ({
 
 module.exports = async ({
   preload,
+  setupEach,
   setup,
-  setupOnce,
   draw,
-  drawOnce,
+  preDraw,
   options
 }) => {
   const {
@@ -139,7 +141,7 @@ module.exports = async ({
           p,
           preview
         };
-        if (setupOnce) setupOnce(p, null, meta);
+        if (setup) setup(p, null, meta);
         for (let i = 0; i < 10; i++) {
           const graph = p.createGraphics(
             w / vx + depth * depthMult,
@@ -148,8 +150,10 @@ module.exports = async ({
           );
           const cam = graph.createCamera();
           renderers.push({ graph, cam });
-          meta.cam = cam;
-          setup(graph, null, meta);
+          if (setupEach) {
+            meta.cam = cam;
+            setupEach(graph, null, meta);
+          }
         }
         const updateViewerFrame = () => viewerFrame++;
 
@@ -177,14 +181,14 @@ module.exports = async ({
           previewQuilt,
           viewerFrame,
           device,
-          drawOnce
+          preDraw
         });
       };
     };
 
     new p5(s);
   } catch (err) {
-    setup(null, err);
-    if (setupOnce) setupOnce(null, err);
+    if (setupEach) setupEach(null, err, {});
+    if (setup) setup(null, err, {});
   }
 };

@@ -6,7 +6,7 @@ const preload = p => {
   font = p.loadFont('./SquadaOne-Regular.ttf');
 };
 
-const setupOnce = (p, err, meta) => {
+const setup = (p, err, meta) => {
   if (err) console.error(`Error getting HoloCore started: ${err}`);
   else {
     const { hardwareVersion, hwid } = meta.device;
@@ -15,7 +15,7 @@ const setupOnce = (p, err, meta) => {
   }
 };
 
-const setup = (p, err, meta) => {
+const setupEach = (p, err, meta) => {
   if (!err) {
     const { width, height } = meta.p;
     p.textFont(font);
@@ -25,12 +25,19 @@ const setup = (p, err, meta) => {
   }
 };
 
+let lightPos = [0, 0];
+
+const preDraw = (p, meta) => {
+  const { mouseX, mouseY, width, height } = meta.p;
+  lightPos = [mouseX - width / 2, mouseY - height / 2];
+};
+
 const draw = (p, meta) => {
   const { previewFrame } = meta;
-  const { mouseX, mouseY, width, height } = meta.p;
+  const { width, height } = meta.p;
   p.background(0);
   p.ambientLight(60, 60, 80);
-  p.pointLight(255, 200, 150, mouseX - width / 2, mouseY - height / 2, 120);
+  p.pointLight(255, 200, 150, ...lightPos, 120);
 
   p.noStroke();
   p.specularMaterial(250);
@@ -52,9 +59,10 @@ const draw = (p, meta) => {
   p.text('World', 0, height / 2.7, 0);
 };
 
-sketchWebgl({
-  setupOnce,
+webglSketch({
   setup,
+  setupEach,
+  preDraw,
   draw,
   preload
 });
