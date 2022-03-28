@@ -1,4 +1,4 @@
-const { sketch2d } = require('p5-holoplay');
+const { p2dSketch } = require('p5-holoplay');
 
 const colors = [
   [255, 50, 50],
@@ -34,4 +34,4 @@ const draw = (p, add, meta) => {
   }, 200 * Math.sin(p.millis() / 600));
 };
 
-sketch2d({ setup, draw });
+p2dSketch({ setup, draw });

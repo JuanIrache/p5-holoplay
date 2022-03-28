@@ -1,4 +1,4 @@
-const { sketchWebgl } = require('p5-holoplay');
+const { webglSketch } = require('p5-holoplay');
 
 let font;
 
