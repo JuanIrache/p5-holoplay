@@ -126,6 +126,12 @@ A similar project could be created for the 3D renderers of p5 (webgl). You will 
 
 ## TODO
 
+- Add webgl mode
+
+  - Modularise
+  - Update code to match improvements from webgl experiments
+  - Rename package and deprecate old
+
 - Optimise fps somehow? Converting the canvas takes time, and HoloPlay Core takes time to receive it and confirm https://github.com/Looking-Glass/HoloPlayJS_Issues/issues/19
 - See if holoplay-core can be updated so "message" is not always printed https://github.com/Looking-Glass/HoloPlayJS_Issues/issues/18
 - Maybe check if last message was confirmed by holo before sending the next?
