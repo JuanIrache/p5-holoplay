@@ -127,14 +127,12 @@ A similar project could be created for the 3D renderers of p5 (webgl). You will 
 ## TODO
 
 - Add webgl mode
-  - Copy webgl version and modularise
   - Slow down wiggle?
-  - Rename package and deprecate old
-  - Update docs
+  - Use package on samples, instead ../index
+  - Rename package, deprecate old and reference in sample projects
+  - Update docs and sample docs
 - Optimise fps somehow? Converting the canvas takes time, and HoloPlay Core takes time to receive it and confirm https://github.com/Looking-Glass/HoloPlayJS_Issues/issues/19
 - See if holoplay-core can be updated so "message" is not always printed https://github.com/Looking-Glass/HoloPlayJS_Issues/issues/18
-- Maybe check if last message was confirmed by holo before sending the next?
-- See how we can use p5 frameCount, frameRate, etc.
 - Test on multiple devices, browsers, etc.
 - Use mathematically correct formula for _adaptSize_
 
