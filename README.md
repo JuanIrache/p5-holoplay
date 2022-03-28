@@ -127,9 +127,6 @@ A similar project could be created for the 3D renderers of p5 (webgl). You will 
 ## TODO
 
 - Add webgl mode
-  - Update code to match improvements from webgl experiments
-    - do loop and read quilt separately
-    - pass meta data for advanced work
   - Copy webgl version and modularise
   - Slow down wiggle?
   - Rename package and deprecate old
