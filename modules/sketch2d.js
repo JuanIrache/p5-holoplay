@@ -28,7 +28,7 @@ const drawQuilt = ({
   specs,
   quilt,
   preview,
-  frameCount,
+  previewFrame,
   adaptSize,
   wigglePreview,
   previewQuilt
@@ -49,7 +49,7 @@ const drawQuilt = ({
 
   if (!previewQuilt) {
     let i = Math.floor(vtotal / 2);
-    if (wigglePreview) i += frameCount % 2 === 0 ? 1 : -1;
+    if (wigglePreview) i += previewFrame % 2 === 0 ? 1 : -1;
     drawView({ p, i, vtotal, shapes, adaptSize });
   }
 };
@@ -73,7 +73,7 @@ module.exports = async ({ preload, setup, draw, options }) => {
     const specs = { vx, vy, vtotal: vx * vy, aspect };
     const s = p => {
       let preview, quilt;
-      let frameCount = 0;
+      let previewFrame = 0;
       let viewerFrame = 0;
 
       if (preload) p.preload = () => preload(p);
@@ -90,13 +90,29 @@ module.exports = async ({ preload, setup, draw, options }) => {
           preview.hide();
           quilt.show();
         }
-        setup(p, device);
+        const meta = {
+          previewFrame: 0,
+          viewerFrame,
+          device,
+          quilt,
+          p,
+          preview
+        };
+        setup(p, null, meta);
       };
 
       p.draw = () => {
         const shapes = [];
         const add = (action, depth) => shapes.push({ action, depth });
-        draw(p, add);
+        const meta = {
+          previewFrame,
+          viewerFrame,
+          device,
+          quilt,
+          p,
+          preview
+        };
+        draw(p, add, meta);
         drawQuilt({
           p,
           client,
@@ -104,17 +120,17 @@ module.exports = async ({ preload, setup, draw, options }) => {
           specs,
           quilt,
           preview,
-          frameCount,
+          previewFrame,
           adaptSize,
           wigglePreview,
           previewQuilt
         });
-        frameCount++;
+        previewFrame++;
       };
     };
 
     new p5(s);
   } catch (err) {
-    setup(null, null, err);
+    setup(null, err);
   }
 };

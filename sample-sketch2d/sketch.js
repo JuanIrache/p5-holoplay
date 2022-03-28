@@ -8,10 +8,11 @@ const colors = [
 
 let colorIdx = 0;
 
-const setup = (p, device, err) => {
+const setup = (p, err, meta) => {
   if (err) console.error(`Error getting HoloCore started: ${err}`);
   else {
-    console.log('Started HoloCore for', device.hardwareVersion, device.hwid);
+    const { hardwareVersion, hwid } = meta.device;
+    console.log('Started HoloCore for', hardwareVersion, hwid);
     p.noStroke();
     p.textAlign(p.CENTER, p.CENTER);
     p.textSize(50);
@@ -21,7 +22,7 @@ const setup = (p, device, err) => {
   }
 };
 
-const draw = (p, add) => {
+const draw = (p, add, meta) => {
   add(() => p.background(250));
   add(() => p.text('NEAR', p.width / 2, p.height * 0.75), -100);
   add(() => p.text('CENTER', p.width / 2, p.height * 0.5), 0);
