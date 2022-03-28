@@ -68,7 +68,9 @@ const drawQuilt = ({
     );
     if (!previewQuilt) {
       let wantedI = Math.floor(vtotal / 2);
-      if (wigglePreview) wantedI += previewFrame % 2 === 0 ? 2 : -2;
+      if (wigglePreview) {
+        wantedI += Math.round(previewFrame / 2) % 2 === 0 ? 2 : -2;
+      }
       if (i === wantedI) {
         preview.image(
           graph,

@@ -49,7 +49,9 @@ const drawQuilt = ({
 
   if (!previewQuilt) {
     let i = Math.floor(vtotal / 2);
-    if (wigglePreview) i += previewFrame % 2 === 0 ? 1 : -1;
+    if (wigglePreview) {
+      i += Math.round(previewFrame / 2) % 2 === 0 ? 1 : -1;
+    }
     drawView({ p, i, vtotal, shapes, adaptSize });
   }
 };
