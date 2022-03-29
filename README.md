@@ -165,7 +165,7 @@ const options = {
 - **wigglePreview** default _true_: The preview in the browser window switches between displaying two of the camera perspectives to convey a sense of depth even if you are not looking at the holographic display.
 - **previewQuilt** deafult _false_: See the entire ['quilt'](https://docs.lookingglassfactory.com/keyconcepts/quilts) with multiple camera views in your browser, instead of the simplified preview.
 - **adaptSize** (_P2D_ only) default _true_: Adapts the size of layers to increase perceived depth with some conic perspective. This is not geometrically accurate. Disabling it increases precision when drawing elements. For example, if _adaptSize_ is enabled and you draw a dot at the coordinates 0,0 of a layer with negative depth, the dot will be outside of the screen due to the conic perspective.
-- **depth** (_WEBGL_ only) default _100_: Increases or decreases the depth perspective by drawing a wider or narrower range of camera positions.
+- **depth** (_WEBGL_ only) default _100_: Increases or decreases the depth perception by drawing a wider or narrower range of virtual camera positions.
 
 ## How does this work?
 
