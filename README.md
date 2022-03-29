@@ -1,6 +1,6 @@
 # p5-holoplay
 
-Allows to create holographic [p5js](https://p5js.org) sketches and shows them to [Looking Glass](https://lookingglassfactory.com/) holographic displays.
+Allows to create holographic [p5js](https://p5js.org) sketches and sends them to [Looking Glass](https://lookingglassfactory.com/) holographic displays.
 
 See a [quick video test here](https://youtu.be/Bb5oi7Y_aos).
 
@@ -27,7 +27,7 @@ and including it in your javascript as a CommonsJS module (it will need bundling
 const { sketchP2d, sketchWebgl } = require('p5-holoplay');
 ```
 
-Then prepare your _setup_, _draw_, etc. functions as explained below and pass them to the chosen mode, _p2d_ or _webgl_.
+Then prepare your _setup_, _draw_, etc. functions as explained below and pass them to the chosen mode, _P2D_ or _WEBGL_.
 
 ## How to create p5 holograms
 
@@ -36,7 +36,7 @@ This project integrates p5js in [instance mode](https://p5js.org/reference/#/p5/
 You have to choose one of two drawing modes.
 
 - **sketchP2d**: Uses p5's [P2D](https://p5js.org/reference/#/p5/P2D) renderer. It draws flat (2D) shapes to 3D space by specifying a depth value for each block of drawing code.
-- **sketchWebgl**: uses p5's [WEBGL](https://p5js.org/reference/#/p5/WEBGL) renderer. It draws 3D shapes and uses lights to show volumes.
+- **sketchWebgl**: Uses p5's [WEBGL](https://p5js.org/reference/#/p5/WEBGL) renderer. It draws 3D shapes and uses lights to show volumes.
 
 The basic usage of both modes is similar. The _sketchP2d_ or _sketchWebgl_ function accepts an object with functions named after the typical p5js functions (_preload_, _setup_, _draw_) and an options object.
 
@@ -60,7 +60,7 @@ const setup = p => {
 };
 ```
 
-The functions you provide to each more are significantly different:
+The functions you provide to each mode are significantly different:
 
 ### sketchP2d
 
@@ -118,12 +118,12 @@ A _meta_ object is passed with some functions to enable advanced work. The objec
 
 - **device**: Hardware data from [holoplay-core](https://www.npmjs.com/package/holoplay-core).
 - **viewerFrame**: Frame number of the Looking Glass device. Potential replacement of p5's [frameCount](https://p5js.org/reference/#/p5/frameCount) Useful because it does not update at p5's normal frame rate.
-- **previewFrame**: (_webgl_ only) Frame number of the preview canvas. Potential replacement of p5's [frameCount](https://p5js.org/reference/#/p5/frameCount) Useful because it does not update at p5's normal frame rate, nor at the Looking Glass rate.
-- **cam**: (_webgl_ only) [p5.Camera](https://p5js.org/reference/#/p5.Camera) of the view that is currently being drawn. It allows camera transformations like position and field of view.
-- **millis**: (_webgl_ only) Time since the stetch started running, in milliseconds. Potential replacement of [millis()](https://p5js.org/reference/#/p5/millis), which would change while the multiple views are being drawn, this providing unexpected results.
+- **previewFrame**: (_WEBGL_ only) Frame number of the preview canvas. Potential replacement of p5's [frameCount](https://p5js.org/reference/#/p5/frameCount) Useful because it does not update at p5's normal frame rate, nor at the Looking Glass rate.
+- **cam**: (_WEBGL_ only) [p5.Camera](https://p5js.org/reference/#/p5.Camera) of the view that is currently being drawn. It allows camera transformations like position and field of view.
+- **millis**: (_WEBGL_ only) Time since the stetch started running, in milliseconds. Potential replacement of [millis()](https://p5js.org/reference/#/p5/millis), which would change while the multiple views are being drawn, this providing unexpected results.
 - **quilt**: Reference to the [p5.Graphics](https://p5js.org/reference/#/p5.Graphics) holding the ['quilt'](https://docs.lookingglassfactory.com/keyconcepts/quilts) being sent to the Looking Glass device. Useful for doing things with that specific canvas, like saving it to a file with [].save()](https://p5js.org/reference/#/p5/save).
 - **preview**: Reference to the [p5.Renderer](https://p5js.org/reference/#/p5/createCanvas) holding the preview visualization.
-- **p**: Reference to the [p5 sketch](https://p5js.org/reference/#/p5/p5). In _webgl_ mode, it can be more representative than the main _p_ of the _draw_ function, as that refers to the camera perspective being drawn at any given time. So use it for things like sketch width, mouse position...
+- **p**: Reference to the [p5 sketch](https://p5js.org/reference/#/p5/p5). In _WEBGL_ mode, it can be more representative than the main _p_ of the _draw_ function, as that refers to the camera perspective being drawn at any given time. So use it for things like sketch width, mouse position...
 
 ### Other p5 functions
 
@@ -154,13 +154,18 @@ For more p5 methods and properties, see the [reference](https://p5js.org/referen
 An _options_ object can also be passed to the main functions.
 
 ```js
-const options = { adaptSize: false, wigglePreview: false, previewQuilt: true };
+const options = {
+  wigglePreview: false,
+  previewQuilt: true,
+  adaptSize: false,
+  depth: 120
+};
 ```
 
 - **wigglePreview** default _true_: The preview in the browser window switches between displaying two of the camera perspectives to convey a sense of depth even if you are not looking at the holographic display.
 - **previewQuilt** deafult _false_: See the entire ['quilt'](https://docs.lookingglassfactory.com/keyconcepts/quilts) with multiple camera views in your browser, instead of the simplified preview.
-- **adaptSize** (_p2d_ only) default _true_: Adapts the size of layers to increase perceived depth with some conic perspective. This is not geometrically accurate. Disabling it increases precision when drawing elements. For example, if _adaptSize_ is enabled and you draw a dot at the coordinates 0,0 of a layer with negative depth, the dot will be outside of the screen due to the conical perspective.
-- **depth** (_webgl_ only) default _100_: Increases or decreases the depth perspective by drawing a wider or narrower range of camera positions.
+- **adaptSize** (_P2D_ only) default _true_: Adapts the size of layers to increase perceived depth with some conic perspective. This is not geometrically accurate. Disabling it increases precision when drawing elements. For example, if _adaptSize_ is enabled and you draw a dot at the coordinates 0,0 of a layer with negative depth, the dot will be outside of the screen due to the conic perspective.
+- **depth** (_WEBGL_ only) default _100_: Increases or decreases the depth perspective by drawing a wider or narrower range of camera positions.
 
 ## How does this work?
 
