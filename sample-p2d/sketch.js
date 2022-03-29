@@ -28,7 +28,6 @@ const draw = (p, add, meta) => {
   add(() => p.text('CENTER', p.width / 2, p.height * 0.5), 0);
   add(() => p.text('FAR', p.width / 2, p.height * 0.25), 100);
   add(() => {
-    p.noStroke();
     p.fill(...colors[colorIdx]);
     p.ellipse(p.width / 2, p.height / 2, 150);
   }, 200 * Math.sin(p.millis() / 600));
