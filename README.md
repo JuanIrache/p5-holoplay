@@ -2,7 +2,7 @@
 
 Allows to create holographic [p5js](https://p5js.org) sketches and sends them to [Looking Glass](https://lookingglassfactory.com/) holographic displays.
 
-See a [quick video test here](https://youtu.be/Bb5oi7Y_aos).
+See a [quick demonstration here](https://youtu.be/wn3wKFlgZqE).
 
 ## Prerequisites
 
