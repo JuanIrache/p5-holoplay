@@ -28,8 +28,7 @@ const setupEach = (p, err, meta) => {
 let lightPos = [0, 0];
 
 const preDraw = (p, meta) => {
-  const { mouseX, mouseY, width, height } = meta.p;
-  lightPos = [mouseX - width / 2, mouseY - height / 2];
+  lightPos = [p.mouseX - p.width / 2, p.mouseY - p.height / 2];
 };
 
 const draw = (p, meta) => {
