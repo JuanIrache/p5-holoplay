@@ -4,7 +4,6 @@
   "description": "Modify this project to create your own, or use it for reference",
   "main": "index.html",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "build": "browserify sketch.js -o bundle.js",
     "start": "budo sketch.js:bundle.js --live --open"
   },
