@@ -179,6 +179,7 @@ The code generates a [Quilt](https://docs.lookingglassfactory.com/keyconcepts/qu
 
 ## TODO
 
+- Simplify WEBGL mode to a single canvas with p5.EasyCam Multiview: https://github.com/freshfork/p5.EasyCam/blob/master/examples/MultiView/MultiView.js
 - Optimise fps somehow? Converting the canvas takes time, and HoloPlay Core takes time to receive it and confirm https://github.com/Looking-Glass/HoloPlayJS_Issues/issues/19
 - See if holoplay-core can be updated so "message" is not always printed https://github.com/Looking-Glass/HoloPlayJS_Issues/issues/18
 - Test on multiple devices, browsers, etc.
