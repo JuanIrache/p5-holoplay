@@ -1,12 +1,12 @@
 {
   "name": "p5-holoplay",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "description": "Allows to draw p5js elements to a Looking Glass holographic display",
   "main": "index.js",
   "scripts": {},
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/JuanIrache//p5-holoplay.git"
+    "url": "git+https://github.com/JuanIrache/p5-holoplay.git"
   },
   "keywords": [
     "hologram",
