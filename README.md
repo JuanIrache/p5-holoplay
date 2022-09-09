@@ -7,7 +7,7 @@ See a [quick demonstration here](https://youtu.be/wn3wKFlgZqE).
 ## Prerequisites
 
 - A [Looking Glass](https://lookingglassfactory.com/) holographic display
-- Install [HoloPlay Service](https://lookingglassfactory.com/software#holoplay-service) to communicate with the device
+- Install [Looking Glass Bridge](https://lookingglassfactory.com/software/looking-glass-bridge) to communicate with the device
 - Plug the device to your computer both by USB and HDMI
 - Install [node](https://nodejs.org) on your computer
 
