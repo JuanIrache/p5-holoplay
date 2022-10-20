@@ -4,6 +4,20 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>p5.js + HoloPlayCore example</title>
+    <script type="module">
+      import {
+        LookingGlassWebXRPolyfill,
+        LookingGlassConfig
+      } from 'https://unpkg.com/@lookingglass/webxr@0.1.9/dist/webxr.js';
+      const config = LookingGlassConfig;
+      config.tileHeight = 512;
+      config.numViews = 45;
+      config.targetY = 0;
+      config.targetZ = 0;
+      config.targetDiam = 3;
+      config.fovy = (14 * Math.PI) / 180;
+      window.config = config;
+    </script>
     <style>
       body {
         padding: 0;

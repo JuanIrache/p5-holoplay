@@ -22,6 +22,14 @@ const getClient = () =>
           }
         });
 
+        try {
+          const shader = new HoloPlayCore.Shader(window.config);
+      console.log(shader);
+          
+        } catch (error) {
+          console.error(error)
+        }
+
         resolve([client, device]);
       },
       e => reject(`Error code ${e.error} (${errors[e.error]})`)
@@ -33,6 +41,7 @@ const showQuilt = async input => {
   worker.onmessage = ({ data }) => {
     showQuilt(input);
     updateViewerFrame();
+    
     client
       .sendMessage(
         new HoloPlayCore.ShowMessage(specs, new Uint8Array(data.payload))

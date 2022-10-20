@@ -20,7 +20,7 @@
   "author": "Juan Irache Duesca",
   "license": "ISC",
   "dependencies": {
-    "holoplay-core": "^0.0.8",
+    "holoplay-core": "^0.0.9",
     "p5": "^1.4.1"
   }
 }
