@@ -21,6 +21,6 @@
   "license": "ISC",
   "dependencies": {
     "holoplay-core": "^0.0.8",
-    "p5": "^1.4.1"
+    "p5": "^1.4.2"
   }
 }
