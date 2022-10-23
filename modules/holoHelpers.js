@@ -43,7 +43,6 @@ const showQuilt = async input => {
         console.error(`HoloPlayCore Error code ${e.error}: ${errors[e.error]}`)
       );
   };
-  console.log(status);
   if (status.updated) {
     const bitmap = await createImageBitmap(quilt.elt);
     status.updated = false;
