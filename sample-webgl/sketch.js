@@ -47,6 +47,7 @@ const draw = (p, meta) => {
   p.pop();
 
   p.stroke(100, 255, 255);
+  p.fill(0,0);
   p.emissiveMaterial(250, 250, 250, 0);
   p.push();
   p.rotateY(-previewFrame / 30);
