@@ -14,7 +14,9 @@ const getClient = () =>
         const device = devices[0];
         if (!device) return reject('Device not found');
         if (!device.defaultQuilt) return reject('Device calibration not found');
-
+        if (typeof device.defaultQuilt === 'string') {
+          device.defaultQuilt = JSON.parse(device.defaultQuilt);
+        }
         worker.postMessage({
           action: 'setSize',
           payload: {

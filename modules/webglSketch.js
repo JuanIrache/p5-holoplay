@@ -112,9 +112,6 @@ module.exports = async ({
     const [client, device] = await getClient();
 
     let { defaultQuilt } = device;
-    if (typeof defaultQuilt === 'string') {
-      defaultQuilt = JSON.parse(defaultQuilt);
-    }
     const {
       quiltAspect: aspect,
       quiltX: w,
