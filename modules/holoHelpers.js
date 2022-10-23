@@ -31,7 +31,7 @@ const getClient = () =>
   });
 
 const showQuilt = async input => {
-  const { quilt, client, specs, updateViewerFrame } = input;
+  const { quilt, client, specs, updateViewerFrame, status } = input;
   worker.onmessage = ({ data }) => {
     showQuilt(input);
     updateViewerFrame();
@@ -43,10 +43,12 @@ const showQuilt = async input => {
         console.error(`HoloPlayCore Error code ${e.error}: ${errors[e.error]}`)
       );
   };
-
-  const bitmap = await createImageBitmap(quilt.elt);
-
-  worker.postMessage({ action: 'saveFrame', payload: { bitmap } }, [bitmap]);
+  console.log(status);
+  if (status.updated) {
+    const bitmap = await createImageBitmap(quilt.elt);
+    status.updated = false;
+    worker.postMessage({ action: 'saveFrame', payload: { bitmap } }, [bitmap]);
+  } else setTimeout(() => showQuilt(input), 1);
 };
 
 module.exports = { getClient, showQuilt };

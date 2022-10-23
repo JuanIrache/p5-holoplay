@@ -22,6 +22,8 @@ const drawView = ({ p, i, vtotal, shapes, adaptSize }) => {
   }
 };
 
+const status = { updated: false };
+
 const drawQuilt = ({
   p,
   shapes,
@@ -45,6 +47,8 @@ const drawQuilt = ({
       quilt.image(preview, quiltX, quiltY);
     }
   }
+
+  status.updated = true;
 
   if (!previewQuilt) {
     let i = Math.floor(vtotal / 2);
@@ -86,7 +90,7 @@ module.exports = async ({ preload, setup, draw, options }) => {
 
         const updateViewerFrame = () => viewerFrame++;
 
-        showQuilt({ quilt, client, specs, updateViewerFrame });
+        showQuilt({ quilt, client, specs, updateViewerFrame, status });
 
         if (previewQuilt) {
           preview.hide();

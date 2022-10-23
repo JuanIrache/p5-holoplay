@@ -14,6 +14,8 @@ const drawView = ({ graph, draw, viewProp, cam, meta }) => {
   }
 };
 
+const status = { updated: false };
+
 const drawQuilt = ({
   p,
   draw,
@@ -91,6 +93,7 @@ const drawQuilt = ({
 
     frameCount++;
   }
+  status.updated = true;
 
   return [frameCount, millis];
 };
@@ -159,7 +162,7 @@ module.exports = async ({
         }
         const updateViewerFrame = () => viewerFrame++;
 
-        showQuilt({ quilt, client, specs, updateViewerFrame });
+        showQuilt({ quilt, client, specs, updateViewerFrame, status });
         if (previewQuilt) {
           preview.hide();
           quilt.show();
